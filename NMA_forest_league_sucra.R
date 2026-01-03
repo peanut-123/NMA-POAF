@@ -69,8 +69,8 @@ dev.off()
 #league
 sorted_names <- names(sort(sucra_raw, decreasing = TRUE))
 league_res <- relative.effect.table(pmcmc)
-or_val  <- exp(league_res[,,1])
-low_val <- exp(league_res[,,2])
+or_val  <- exp(league_res[,,2])
+low_val <- exp(league_res[,,1])
 upp_val <- exp(league_res[,,3])
 n <- length(sorted_names)
 formatted_matrix <- matrix("", nrow = n, ncol = n, dimnames = list(sorted_names, sorted_names))
@@ -274,8 +274,8 @@ dev.off()
 #league
 sorted_names <- names(sort(sucra_raw, decreasing = TRUE))
 league_res <- relative.effect.table(npmcmc)
-or_val  <- exp(league_res[,,1])
-low_val <- exp(league_res[,,2])
+or_val  <- exp(league_res[,,2])
+low_val <- exp(league_res[,,1])
 upp_val <- exp(league_res[,,3])
 n <- length(sorted_names)
 formatted_matrix <- matrix("", nrow = n, ncol = n, dimnames = list(sorted_names, sorted_names))
@@ -412,3 +412,4 @@ final_output <- p_left + p_mid + p_right_or + p_right_n + p_right_studies +
   )
 
 ggsave("npforestplot.pdf", final_output, width = 28, height = 16, device = cairo_pdf)
+
