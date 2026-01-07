@@ -3,8 +3,6 @@ library(gemtc)
 library(readxl)
 library(tidyverse)
 
-
-setwd("D:\\liuchenyu\\paper\\network\\paper")
 arm <- read_excel("article_arm.xlsx", sheet = 1)
 arm=rename(arm,
            study  =  No ,      
@@ -354,44 +352,31 @@ data <- data.frame(
           "-0.116 to 0.270", "-0.503 to -0.107", "-0.292 to 0.182", "-0.002 to 0.327", 
           "-0.079 to 0.336", "-0.020 to 0.447")
 )
-
-# 2. 构建用于显示的文本表格 (包含表头)
 tabletext <- cbind(
   c("Variable", data$variable),
   c("Mean", format(round(data$mean, 3), nsmall = 3)),
   c("95% CrI", data$crl)
 )
 
-# 3. 绘图
 forestplot(
   labeltext = tabletext,
-  mean = c(NA, data$mean),   # 第一行是表头，所以填 NA
+  mean = c(NA, data$mean),   
   lower = c(NA, data$lower),
   upper = c(NA, data$upper),
-  is.summary = c(TRUE, rep(FALSE, nrow(data))), # 第一行加粗显示
-  
-  # X 轴设置
+  is.summary = c(TRUE, rep(FALSE, nrow(data))), 
   xlab = "Regression Coefficient",
-  grid = structure(0, gp = gpar(lty = 2, col = "gray")), # 在0处画虚线
+  grid = structure(0, gp = gpar(lty = 2, col = "gray")), 
   xticks = c(-0.6, -0.4, -0.2, 0, 0.2, 0.4, 0.6),
-  
-  # 底部文字标注：<0 正相关，>0 负相关
   txt_gp = fpTxtGp(xlab = gpar(cex = 1), ticks = gpar(cex = 0.8)),
   title = "Forest Plot of Regression Coefficients",
-  
-  # 颜色与样式
   col = fpColors(box = "royalblue", line = "darkblue", summary = "black"),
   boxsize = 0.2,
-  
-  # 设置 X 轴下方的正负相关标注
-  # 注意：通常回归系数 > 0 表示正相关，但根据你的要求进行了文字自定义
   clip = c(-0.6, 0.6),
-  graph.pos = 2 # 森林图放在第二列后面
+  graph.pos = 2 
 )
-
-# 添加底部自定义标注 (手动在绘图区下方添加说明)
 grid.text("Positively correlated with POAF<---", x = 0.4, y = 0.05, gp = gpar(col = "red", fontsize = 10))
 grid.text("---> Negatively correlated with POAF", x = 0.7, y = 0.05, gp = gpar(col = "blue", fontsize = 10))
+
 
 
 
